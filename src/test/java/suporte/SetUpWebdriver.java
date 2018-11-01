@@ -1,18 +1,13 @@
 package suporte;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class SetUpWebdriver {
@@ -20,8 +15,9 @@ public class SetUpWebdriver {
     public static final String USERNAME = "xxxxxxx";
     public static final String AUTOMATE_KEY = "xxxxxxxxxxxxxxxxx";
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+    private static String URLLOCAL = System.getProperty("url");
 
-    public static WebDriver createDriver(){
+    public static WebDriver createDriver() {
         // para linux e mac
 //        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
@@ -42,12 +38,12 @@ public class SetUpWebdriver {
 //      configurar o tamanho da página
         driver.manage().window().maximize();
 
-        driver.get("http://www.juliodelima.com.br/taskit");
+        driver.get(getUrlLocal());
 
         return driver;
     }
 
-    public static WebDriver createBrowserStack(){
+    public static WebDriver createBrowserStack() {
 
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("browser", "Chrome");
@@ -62,7 +58,7 @@ public class SetUpWebdriver {
             driver = new RemoteWebDriver(new URL(URL), caps);
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             driver.manage().window().maximize();
-            driver.get("http://www.juliodelima.com.br/taskit");
+            driver.get(getUrlLocal());
         } catch (MalformedURLException e) {
             System.out.println("Erro com a URL " + e.getMessage());
         }
@@ -71,7 +67,7 @@ public class SetUpWebdriver {
 
     }
 
-    public static WebDriver createBrowserRemote(){
+    public static WebDriver createBrowserRemote() {
 
         WebDriver driver = null;
 
@@ -79,12 +75,15 @@ public class SetUpWebdriver {
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), new ChromeOptions());
             driver.manage().window().setSize(new Dimension(1920, 1080));
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-            driver.get("http://www.juliodelima.com.br/taskit");
+            driver.get(getUrlLocal()    );
         } catch (MalformedURLException e) {
             System.out.println("Erro com a URL " + e.getMessage());
         }
 
         return driver;
+    }
 
+    private static String getUrlLocal(){
+        return  (URLLOCAL == null)?  "http://www.juliodelima.com.br/taskit" : URLLOCAL;
     }
 }
