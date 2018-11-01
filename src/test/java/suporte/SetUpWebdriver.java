@@ -1,9 +1,11 @@
 package suporte;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -60,6 +62,23 @@ public class SetUpWebdriver {
             driver = new RemoteWebDriver(new URL(URL), caps);
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             driver.manage().window().maximize();
+            driver.get("http://www.juliodelima.com.br/taskit");
+        } catch (MalformedURLException e) {
+            System.out.println("Erro com a URL " + e.getMessage());
+        }
+
+        return driver;
+
+    }
+
+    public static WebDriver createBrowserRemote(){
+
+        WebDriver driver = null;
+
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), new ChromeOptions());
+            driver.manage().window().setSize(new Dimension(1920, 1080));
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             driver.get("http://www.juliodelima.com.br/taskit");
         } catch (MalformedURLException e) {
             System.out.println("Erro com a URL " + e.getMessage());

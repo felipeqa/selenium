@@ -27,7 +27,7 @@ public class InformacoesUsuarioTest {
 
     @Before
     public void setUp(){
-        driver = SetUpWebdriver.createDriver();
+        driver = SetUpWebdriver.createBrowserRemote();
         driver.findElement(By.linkText("Sign in")).click();
 
         WebElement signInBox = driver.findElement(By.id("signinbox"));
