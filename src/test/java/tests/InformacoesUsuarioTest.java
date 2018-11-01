@@ -9,7 +9,6 @@ import org.junit.*;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,12 +16,11 @@ import suporte.Generator;
 import suporte.Screenshot;
 import suporte.SetUpWebdriver;
 
-import java.util.concurrent.TimeUnit;
 @RunWith(DataDrivenTestRunner.class)
 @DataLoader(filePaths = "informacoesUsuarioTestData.csv")
 public class InformacoesUsuarioTest {
 
-    private WebDriver driver = new ChromeDriver();
+    private WebDriver driver;
 
     @Rule
     public TestName nomeDoTeste = new TestName();
@@ -68,7 +66,7 @@ public class InformacoesUsuarioTest {
     @Test
     public void removerUmContatoDeUmUsuario(){
 
-        driver.findElement(By.xpath("//span[text()=\"23232323\"]/following-sibling::a")).click();
+        driver.findElement(By.xpath("//span[text()=\"+5523232323\"]/following-sibling::a")).click();
 
         //fechar janela javascript
         driver.switchTo().alert().accept();
