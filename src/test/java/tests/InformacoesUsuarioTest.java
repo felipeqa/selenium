@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import suporte.Generator;
 import suporte.Screenshot;
+import suporte.SetUpWebdriver;
 
 import java.util.concurrent.TimeUnit;
 @RunWith(DataDrivenTestRunner.class)
@@ -28,12 +29,7 @@ public class InformacoesUsuarioTest {
 
     @Before
     public void setUp(){
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
-//      configurar o tamanho da página
-        driver.manage().window().maximize();
-
-        driver.get("http://www.juliodelima.com.br/taskit");
+        driver = SetUpWebdriver.createDriver();
         driver.findElement(By.linkText("Sign in")).click();
 
         WebElement signInBox = driver.findElement(By.id("signinbox"));
@@ -50,19 +46,7 @@ public class InformacoesUsuarioTest {
     public void testAdicionarUmaInformacaoAdicionalDoUsuario(@Param(name = "tipoContato")String tipoContato,
                                                              @Param(name = "contato")String contato,
                                                              @Param(name = "msg")String msgEsperada){
-        // para linux e mac
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
-        // para windows
-//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\felipe\\drivers\\chromedriver.exe");
-
-//        driver.manage().window().setSize(new Dimension(1280, 800));
-
-        // xpath como pegar o próximo elemento tag a
-        //span[text()="+55909093333"]/following-sibling::a
-
-        // xpath como pegar e elemnto anterior tag i
-        //span[text()="+55909093333"]/preceding-sibling::i
 
         driver.findElement(By.xpath("//div[@id=\"moredata\"]//button[@data-target=\"addmoredata\"]")).click();
 
