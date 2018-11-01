@@ -21,7 +21,7 @@ public class informacoesUsuariosPageObjectTest {
 
     @Before
     public void setUp(){
-        driver = SetUpWebdriver.createDriver();
+        driver = SetUpWebdriver.createBrowserStack();
     }
 
     @Test
